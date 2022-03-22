@@ -40,7 +40,7 @@ class HybridSystem(om.ExplicitComponent):
         # Get resource
         lat = flatirons_site['lat']
         lon = flatirons_site['lon']
-        prices_file = examples_dir.parent / "resource_files" / "grid" / "pricing-data-2015-IronMtn-002_factors.csv"
+        prices_file = examples_dir / "pricing-data-2015-IronMtn-002_factors.csv"
         site = SiteInfo(flatirons_site, grid_resource_file=prices_file)
         
         # Create model
