@@ -18,24 +18,65 @@ class HybridSystem(om.ExplicitComponent):
     """
 
     def setup(self):
+        
+        # Battery inputs
+        # self.add_input('system_capacity_kwh', units='kW*h', val=2000.)
+        # self.add_input('system_capacity_kw', units='kW', val=2000.)
+
+        # Electrolysis inputs
+
+        # Fuel Cell inputs
+
+        # Geothermal inputs
+
+        # Grid inputs
+        self.add_input('interconnection_size_mw', units='MW', val=20.)
+
+        # H2 inputs
+
+        # MHKWave inputs
+
+        # MHKTidal inputs
+
+        # NH3 inputs
+
+        # Solar inputs
         self.add_input('solar_size_mw', units='MW', val=20.)
         
-        self.add_output('hybrid_npv', units='USD', val=1.0)
+        # Wind inputs
+        self.add_input('wind_size_mw', units='MW', val=20.)
+        
+        # Hybrid system outputs
+        self.add_output('hybrid_npv', units='USD', val=1.)
+        self.add_output('lcoe_real', units = 'USD/kW*h', val=1.)
+        self.add_output('lcoe_nom', units= 'USD/kW*h', val=1.)
+        self.add_output('internal_rate_of_return', val=1.)
+
 
     def compute(self, inputs, outputs):
         # Set wind, solar, and interconnection capacities (in MW)
         solar_size_mw = inputs['solar_size_mw']
-        wind_size_mw = 20
-        interconnection_size_mw = 20
+        wind_size_mw = float(inputs['wind_size_mw'])
+        interconnection_size_mw = inputs['interconnection_size_mw']
+        # system_capacity_kwh = inputs['system_capacity_kwh']
+        # system_capacity_kw = inputs['system_capacity_kw']
         
         technologies = {'pv': {
-                            'system_capacity_kw': solar_size_mw * 1000
+                            'system_capacity_kw': solar_size_mw * 1000,
+                            # 'layout_params' : of the SolarGridParameters type
                         },
                         'wind': {
                             'num_turbines': 10,
-                            'turbine_rating_kw': 2000
+                            'turbine_rating_kw': 2000,
+                            # 'layout_mode': 'boundarygrid' or 'grid' ,
+                            # 'layout_params': 'WindBoundaryGridParameters' if 'layout_mode' = 'boundarygrid'
                         },
-                        'grid': interconnection_size_mw}
+                        'grid': interconnection_size_mw,
+                        # 'battery': {
+                        #           'system_capacity_kwh': system_capacity_kwh,
+                        #           'system_capacity_kw' : system_capacity_kw
+                        # }
+                        }
         
         # Get resource
         lat = flatirons_site['lat']
@@ -72,7 +113,9 @@ class HybridSystem(om.ExplicitComponent):
         print(npvs)
 
         outputs["hybrid_npv"] = hybrid_plant.net_present_values.hybrid
-        
+        outputs["lcoe_real"] = hybrid_plant.lcoe_real.hybrid
+        outputs["lcoe_nom"] = hybrid_plant.lcoe_nom.hybrid
+        outputs["internal_rate_of_return"] = hybrid_plant.internal_rate_of_returns.hybrid         
         
 if __name__ == "__main__":
     # build the model
