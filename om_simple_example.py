@@ -45,6 +45,7 @@ class HybridSystem(om.ExplicitComponent):
         
         # Wind inputs
         self.add_input('wind_size_mw', units='MW', val=20.)
+        self.add_discrete_input('turbine_rating_kw', val=2000)
         
         # Hybrid system outputs
         self.add_output('hybrid_npv', units='USD', val=1.)
@@ -53,11 +54,12 @@ class HybridSystem(om.ExplicitComponent):
         self.add_output('internal_rate_of_return', val=1.)
 
 
-    def compute(self, inputs, outputs):
+    def compute(self, inputs, outputs, discrete_inputs, discrete_outputs):
         # Set wind, solar, and interconnection capacities (in MW)
         solar_size_mw = inputs['solar_size_mw']
         wind_size_mw = float(inputs['wind_size_mw'])
         interconnection_size_mw = inputs['interconnection_size_mw']
+        turbine_rating_kw = discrete_inputs['turbine_rating_kw']
         # system_capacity_kwh = inputs['system_capacity_kwh']
         # system_capacity_kw = inputs['system_capacity_kw']
         
@@ -67,7 +69,7 @@ class HybridSystem(om.ExplicitComponent):
                         },
                         'wind': {
                             'num_turbines': 10,
-                            'turbine_rating_kw': 2000,
+                            'turbine_rating_kw': turbine_rating_kw,
                             # 'layout_mode': 'boundarygrid' or 'grid' ,
                             # 'layout_params': 'WindBoundaryGridParameters' if 'layout_mode' = 'boundarygrid'
                         },
@@ -91,7 +93,7 @@ class HybridSystem(om.ExplicitComponent):
         hybrid_plant.wind.system_capacity_by_num_turbines(wind_size_mw * 1000)
         hybrid_plant.ppa_price = 0.1
         hybrid_plant.pv.dc_degradation = [0] * 2
-        hybrid_plant.simulate(2)
+        hybrid_plant.simulate(1)
         
         # Save the outputs
         annual_energies = hybrid_plant.annual_energies
@@ -122,17 +124,26 @@ if __name__ == "__main__":
     prob = om.Problem()
     prob.model.add_subsystem('hybrid_system', HybridSystem(), promotes=['*'])
 
-    # setup the optimization
+    # # setup the optimization
     prob.driver = om.ScipyOptimizeDriver()
-    prob.driver.options['optimizer'] = 'SLSQP'
+    # prob.driver.options['optimizer'] = 'SLSQP'
+    prob.driver = om.DOEDriver(om.UniformGenerator(num_samples=6))
     prob.driver.options['debug_print'] = ["desvars", "objs"]
+    prob.driver.add_recorder(om.SqliteRecorder("cases.sql"))
     
     prob.model.add_design_var('solar_size_mw', lower=0., upper=50.)
-    prob.model.add_objective('hybrid_npv', ref=-1.)
+    # prob.model.add_design_var('wind_size_mw', lower=0., upper=50.)
     
-    prob.model.approx_totals()
+    prob.model.add_objective('hybrid_npv', ref=-1.)
+    # prob.model.add_objective('lcoe_nom', ref=-1.)
+    
+    # prob.model.approx_totals()
     
     prob.setup()
     prob.run_driver()
     
     prob.model.list_outputs()
+    
+
+    
+    
