@@ -20,8 +20,8 @@ class HybridSystem(om.ExplicitComponent):
     def setup(self):
         
         # Battery inputs
-        # self.add_input('system_capacity_kwh', units='kW*h', val=2000.)
-        # self.add_input('system_capacity_kw', units='kW', val=2000.)
+        # self.add_input('battery_capacity_mwh', units='MW*h', val=2000.)
+        # self.add_input('battery_power_mw', units='MW', val=2000.)
 
         # Electrolysis inputs
 
@@ -60,8 +60,8 @@ class HybridSystem(om.ExplicitComponent):
         wind_size_mw = float(inputs['wind_size_mw'])
         interconnection_size_mw = inputs['interconnection_size_mw']
         turbine_rating_kw = discrete_inputs['turbine_rating_kw']
-        # system_capacity_kwh = inputs['system_capacity_kwh']
-        # system_capacity_kw = inputs['system_capacity_kw']
+        # battery_capacity_mwh = inputs['battery_capacity_mwh']
+        # battery_power_mw = inputs['battery_power_mw']
         
         technologies = {'pv': {
                             'system_capacity_kw': solar_size_mw * 1000,
@@ -75,8 +75,8 @@ class HybridSystem(om.ExplicitComponent):
                         },
                         'grid': interconnection_size_mw,
                         # 'battery': {
-                        #           'system_capacity_kwh': system_capacity_kwh,
-                        #           'system_capacity_kw' : system_capacity_kw
+                        #           'system_capacity_kwh': battery_capacity_mwh * 1000,
+                        #           'system_capacity_kw' : battery_power_mw * 4 * 1000
                         # }
                         }
         
@@ -127,15 +127,29 @@ if __name__ == "__main__":
     # # setup the optimization
     prob.driver = om.ScipyOptimizeDriver()
     # prob.driver.options['optimizer'] = 'SLSQP'
-    prob.driver = om.DOEDriver(om.UniformGenerator(num_samples=6))
+    prob.driver = om.DOEDriver(om.UniformGenerator(num_samples=6, seed=1))
     prob.driver.options['debug_print'] = ["desvars", "objs"]
     prob.driver.add_recorder(om.SqliteRecorder("cases.sql"))
     
-    prob.model.add_design_var('solar_size_mw', lower=0., upper=50.)
-    # prob.model.add_design_var('wind_size_mw', lower=0., upper=50.)
-    
+    # Solar DVs
+    prob.model.add_design_var('solar_size_mw', lower=0., upper=100.)
+
+    # Wind DVs
+    # prob.model.add_design_var('wind_size_mw', lower=0., upper=100.)
+    # prob.model.add_design_var('turbine_rating_kw', lower=10, upper=14000)
+
+    # Battery DVs
+    # prob.model.add_design_var('system_capacity_kwh', lower=0., upper=10000.)
+    # prob.model.add_design_var('system_capacity_kw', lower=0., upper=10000.) 
+
+    # Grid DVs
+    # prob.model.add_design_var('interconnection_size_mw', lower=0., upper=100.)
+
+
     prob.model.add_objective('hybrid_npv', ref=-1.)
+    # prob.model.add_objective('lcoe_real', ref=-1.)
     # prob.model.add_objective('lcoe_nom', ref=-1.)
+    # prob.model.add_objective('internal_rate_of_return', ref=1.)
     
     # prob.model.approx_totals()
     
