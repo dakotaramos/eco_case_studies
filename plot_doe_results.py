@@ -7,20 +7,35 @@ cr = om.CaseReader("cases.sql")
 cases = cr.list_cases('driver')
 print(cases)
 
-solar_sizes = []
-npvs = []
+des_var = []
+obj = []
 for case in cases:
     outputs = cr.get_case(case).outputs
-    solar_sizes.append(outputs['solar_size_mw'])
-    npvs.append(outputs['hybrid_npv'])
+    des_var.append(outputs['interconnection_size_mw'])
+    obj.append(outputs['internal_rate_of_return'])
+
+# results = {}
+# for case in cases:
+#     outputs = cr.get_case(case).outputs
+#     for key in outputs:
+
+#         if key not in results.keys():
+#             results[key] = []
+
+#         results[key].append(outputs[key])
+
+# for key in results:
+#     results[key] = np.array(results[key]) 
     
-solar_sizes = np.array(solar_sizes)
-npvs = np.array(npvs)
+des_var = np.array(des_var)
+obj = np.array(obj)
 
-print(solar_sizes)
-print(npvs)
+print(des_var)
+print(obj)
 
-plt.scatter(solar_sizes, npvs)
+plt.scatter(des_var, obj)
+plt.xlabel('Interconnection Size (MW)')
+plt.ylabel('Internal Rate of Return (%)')
 
-plt.plot([np.max(solar_sizes), np.min(solar_sizes)], [np.min(npvs), np.max(npvs)])
+plt.plot([np.min(des_var), np.max(des_var)], [np.min(obj), np.max(obj)])
 plt.show()
