@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 from eco_case_studies.hopp_wrapper import HybridSystem
-from hybrid.sites import SiteInfo, flatirons_site, bozcaada_site 
+from hybrid.sites import SiteInfo, flatirons_site
 from hybrid.hybrid_simulation import HybridSimulation
 from hybrid.log import hybrid_logger as logger
 from hybrid.keys import set_nrel_key_dot_env
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     prob.driver.options['debug_print'] = ["desvars", "objs"]
     prob.driver.add_recorder(om.SqliteRecorder("cases.sql"))
     prob.driver.recording_options['includes'] = ['*']
-
+    
     # Solar DVs
     prob.model.add_design_var('solar_size_mw', lower=0., upper=15.)
 
@@ -40,7 +40,6 @@ if __name__ == "__main__":
 
     # Grid DVs
     # prob.model.add_design_var('interconnection_size_mw', lower=0., upper=5.)
-
 
     prob.model.add_objective('hybrid_npv', ref=-1.)
     prob.model.add_objective('hybrid_lcoe_real', ref=-1.)
