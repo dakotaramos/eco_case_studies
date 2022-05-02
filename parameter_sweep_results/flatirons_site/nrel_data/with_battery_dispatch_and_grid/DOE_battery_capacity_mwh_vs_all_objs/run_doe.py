@@ -28,7 +28,7 @@ if __name__ == "__main__":
     prob.driver.recording_options['includes'] = ['*']
     
     # Solar DVs
-    # prob.model.add_design_var('solar_size_mw', lower=0., upper=100.)
+    # prob.model.add_design_var('solar_size_mw', lower=0., upper=15.)
 
     # Wind DVs
     # prob.model.add_design_var('wind_size_mw', lower=0., upper=15.)
@@ -36,10 +36,10 @@ if __name__ == "__main__":
 
     # Battery DVs
     prob.model.add_design_var('battery_capacity_mwh', lower=0., upper=5.)
-    # prob.model.add_design_var('battery_power_mw', lower=0., upper=10.) 
+    # prob.model.add_design_var('battery_power_mw', lower=0., upper=5.) 
 
     # Grid DVs
-    # prob.model.add_design_var('interconnection_size_mw', lower=0., upper=10.)
+    # prob.model.add_design_var('interconnection_size_mw', lower=0., upper=5.)
 
     prob.model.add_objective('hybrid_npv', ref=-1.)
     prob.model.add_objective('hybrid_lcoe_real', ref=-1.)

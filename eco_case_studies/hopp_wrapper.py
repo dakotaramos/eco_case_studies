@@ -268,8 +268,8 @@ if __name__ == "__main__":
     # prob.model.add_design_var('turbine_rating_kw', lower=10, upper=14000)
 
     # Battery DVs
-    # prob.model.add_design_var('battery_capacity_mwh', lower=0., upper=10.)
-    # prob.model.add_design_var('battery_power_mw', lower=0., upper=10.) 
+    # prob.model.add_design_var('battery_capacity_mwh', lower=0., upper=5.)
+    # prob.model.add_design_var('battery_power_mw', lower=0., upper=5.) 
 
     # Grid DVs
     # prob.model.add_design_var('interconnection_size_mw', lower=0., upper=5.)

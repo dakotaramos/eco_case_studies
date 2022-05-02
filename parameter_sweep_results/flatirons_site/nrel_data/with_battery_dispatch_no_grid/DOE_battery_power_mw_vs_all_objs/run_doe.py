@@ -17,18 +17,18 @@ set_nrel_key_dot_env()
 if __name__ == "__main__":
     # build the model
     prob = om.Problem()
-    prob.model.add_subsystem('hybrid_system', HybridSystem(location=flatirons_site, resource_api='nrel', battery=False, grid=True), promotes=['*'])
+    prob.model.add_subsystem('hybrid_system', HybridSystem(location=flatirons_site, resource_api='nrel', battery=True, grid=False), promotes=['*'])
 
     # # setup the optimization
     prob.driver = om.ScipyOptimizeDriver()
     # prob.driver.options['optimizer'] = 'SLSQP'
-    prob.driver = om.DOEDriver(om.FullFactorialGenerator(levels=76))
+    prob.driver = om.DOEDriver(om.FullFactorialGenerator(levels=26))
     prob.driver.options['debug_print'] = ["desvars", "objs"]
     prob.driver.add_recorder(om.SqliteRecorder("cases.sql"))
     prob.driver.recording_options['includes'] = ['*']
     
     # Solar DVs
-    prob.model.add_design_var('solar_size_mw', lower=0., upper=15.)
+    # prob.model.add_design_var('solar_size_mw', lower=0., upper=15.)
 
     # Wind DVs
     # prob.model.add_design_var('wind_size_mw', lower=0., upper=15.)
@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
     # Battery DVs
     # prob.model.add_design_var('battery_capacity_mwh', lower=0., upper=5.)
-    # prob.model.add_design_var('battery_power_mw', lower=0., upper=5.) 
+    prob.model.add_design_var('battery_power_mw', lower=0., upper=5.) 
 
     # Grid DVs
     # prob.model.add_design_var('interconnection_size_mw', lower=0., upper=5.)
