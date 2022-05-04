@@ -21,9 +21,11 @@ class HybridSystem(om.ExplicitComponent):
         self.options.declare('resource_api', default='nrel')        
         self.options.declare('battery', default=True)
         self.options.declare('grid', default=True)
+        self.options.declare('sim_duration_years', default=25)
 
     def setup(self):
-        
+        # Duration variable
+        self.sim_duration_years = self.options['sim_duration_years']
         # Battery inputs
         if self.options['location'] == flatirons_site:
             if self.options['battery']:
@@ -103,11 +105,11 @@ class HybridSystem(om.ExplicitComponent):
         self.add_output('grid_irr', val=1.)
         self.add_output('pv_pct', val=1.)
         self.add_output('wind_pct', val=1.)
-        self.add_output('pv_annual_energy', units='kW*h', val=1.)
-        self.add_output('wind_annual_energy', units='kW*h', val=1.)
-        self.add_output('battery_annual_energy', units='kW*h', val=1.)
-        self.add_output('hybrid_annual_energy', units='kW*h', val=1.)
-        self.add_output('grid_annual_energy', units='kW*h', val=1.)
+        self.add_output('pv_annual_energy', units='kW', val=1.)
+        self.add_output('wind_annual_energy', units='kW', val=1.)
+        self.add_output('battery_annual_energy', units='kW', val=1.)
+        self.add_output('hybrid_annual_energy', units='kW', val=1.)
+        self.add_output('grid_annual_energy', units='kW', val=1.)
         self.add_output('pv_cost_installed', units='USD', val=1.)
         self.add_output('wind_cost_installed', units='USD', val=1.)
         self.add_output('battery_cost_installed', units='USD', val=1.)
@@ -124,7 +126,9 @@ class HybridSystem(om.ExplicitComponent):
         self.add_output('grid_capacity_factor_curtailed', val=1.)
         self.add_output('grid_capacity_factor_at_interconnect', val=1.)
         self.add_output('grid_curtailment_%', val=1.)
-        
+        self.add_output('pv_generation_profile', shape=self.sim_duration_years*8760)
+        self.add_output('wind_generation_profile', shape=self.sim_duration_years*8760)
+        self.add_output('hybrid_generation_profile', shape=self.sim_duration_years*8760)
 
     def compute(self, inputs, outputs, discrete_inputs, discrete_outputs):
         # Set wind, solar, and interconnection capacities (in MW)
@@ -176,8 +180,8 @@ class HybridSystem(om.ExplicitComponent):
         hybrid_plant.pv.system_capacity_kw = solar_size_mw * 1000
         hybrid_plant.wind.system_capacity_by_num_turbines(wind_size_mw * 1000)
         hybrid_plant.ppa_price = 0.1
-        hybrid_plant.pv.dc_degradation = [0] * 25
-        hybrid_plant.simulate(25)
+        hybrid_plant.pv.dc_degradation = [0] * self.sim_duration_years
+        hybrid_plant.simulate(self.sim_duration_years)
         
         # Save the outputs
         annual_energies = hybrid_plant.annual_energies
@@ -245,6 +249,9 @@ class HybridSystem(om.ExplicitComponent):
         except:
             outputs['grid_capacity_factor_at_interconnect'] = hybrid_plant.grid.capacity_factor_at_interconnect
         outputs['grid_curtailment_%'] = hybrid_plant.grid.curtailment_percent
+        outputs['pv_generation_profile'] = hybrid_plant.generation_profile.pv
+        outputs['wind_generation_profile'] = hybrid_plant.generation_profile.wind
+        outputs['hybrid_generation_profile'] = hybrid_plant.generation_profile.hybrid
         
 
 if __name__ == "__main__":

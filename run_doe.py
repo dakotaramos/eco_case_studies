@@ -17,7 +17,7 @@ set_nrel_key_dot_env()
 if __name__ == "__main__":
     # build the model
     prob = om.Problem()
-    prob.model.add_subsystem('hybrid_system', HybridSystem(location=flatirons_site, resource_api='nrel', battery=False, grid=True), promotes=['*'])
+    prob.model.add_subsystem('hybrid_system', HybridSystem(location=flatirons_site, resource_api='nrel', battery=False, grid=True, sim_duration_years=25), promotes=['*'])
 
     # # setup the optimization
     prob.driver = om.ScipyOptimizeDriver()
