@@ -22,7 +22,7 @@ for key in results:
 # Plot DV vs various objectives, intended for one design variable and 1+ objectives
 des_var = list(cr.get_case(case).get_design_vars().keys())[0]
 for key in results:
-    if key != des_var and key not in ['pv_generation_profile', 'wind_generation_profile', 'hybrid_generation_profile']:
+    if key != des_var and key not in ['pv_generation_profile', 'wind_generation_profile', 'hybrid_generation_profile', 'pv_resource_gh','wind_resource_speed']:
         plt.scatter(results[des_var],results[key])
         plt.xlabel('{}'.format(des_var))
         plt.ylabel('{}'.format(key))

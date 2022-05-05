@@ -153,6 +153,37 @@ fname = 'hybrid_generation_profile.png'
 plt.savefig(fname)
 plt.clf()
 
+### Visualize timeseries resource data
+# Solar resource data
+X = list(range(0,336))
+Y = nrel_results['pv_resource_gh'][0][0:336]
+Z = nasa_results['pv_resource_gh'][0][0:336]
+
+plt.plot(X, Y, label="NREL")
+plt.plot(X, Z, label="NASA", linestyle='--')
+plt.xlabel("Hours")
+plt.ylabel("Global Horizontal Irradiance (W/m^2)")
+plt.title("GHI by data source")
+plt.legend()
+fname = 'pv_resource_gh.png'
+plt.savefig(fname)
+plt.clf()
+
+# Wind resource data
+X = list(range(0,336))
+Y = nrel_results['wind_resource_speed'][0][0:336]
+Z = nasa_results['wind_resource_speed'][0][0:336]
+
+plt.plot(X, Y, label="NREL")
+plt.plot(X, Z, label="NASA", linestyle='--')
+plt.xlabel("Hours")
+plt.ylabel("Wind speed (m/s)")
+plt.title("Wind speed by data source")
+plt.legend()
+fname = 'wind_resource_speed.png'
+plt.savefig(fname)
+plt.clf()
+
 # plot_doe_results.py plotting
 # Plot DV vs various objectives, intended for one design variable and 1+ objectives
 # des_var = list(cr.get_case(case).get_design_vars().keys())[0]
