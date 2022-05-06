@@ -132,6 +132,9 @@ class HybridSystem(om.ExplicitComponent):
         self.add_output('hybrid_generation_profile', shape=self.sim_duration_years*8760)
         self.add_output('pv_resource_gh', shape=8760)
         self.add_output('wind_resource_speed', shape=8760)
+        self.add_output('wind_resource_temp', shape=8760)
+        self.add_output('wind_resource_pres', shape=8760)
+        self.add_output('wind_resource_dir', shape=8760)
 
     def compute(self, inputs, outputs, discrete_inputs, discrete_outputs):
         # Set wind, solar, and interconnection capacities (in MW)
@@ -257,6 +260,9 @@ class HybridSystem(om.ExplicitComponent):
         outputs['hybrid_generation_profile'] = hybrid_plant.generation_profile.hybrid
         outputs['pv_resource_gh'] = site.solar_resource._data['gh']
         outputs['wind_resource_speed'] = np.array(site.wind_resource._data['data'])[:,2]
+        outputs['wind_resource_temp'] = np.array(site.wind_resource._data['data'])[:,0]
+        outputs['wind_resource_pres'] = np.array(site.wind_resource._data['data'])[:,1]
+        outputs['wind_resource_dir'] = np.array(site.wind_resource._data['data'])[:,3]
         
 
 if __name__ == "__main__":

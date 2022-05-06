@@ -155,6 +155,7 @@ plt.clf()
 
 ### Visualize timeseries resource data
 # Solar resource data
+# 2 week range
 X = list(range(0,336))
 Y = nrel_results['pv_resource_gh'][0][0:336]
 Z = nasa_results['pv_resource_gh'][0][0:336]
@@ -165,11 +166,26 @@ plt.xlabel("Hours")
 plt.ylabel("Global Horizontal Irradiance (W/m^2)")
 plt.title("GHI by data source")
 plt.legend()
-fname = 'pv_resource_gh.png'
+fname = 'pv_resource_gh_2week.png'
+plt.savefig(fname)
+plt.clf()
+# 1 year range
+X = list(range(0,8760))
+Y = nrel_results['pv_resource_gh'][0][0:8760]
+Z = nasa_results['pv_resource_gh'][0][0:8760]
+
+plt.plot(X, Y, label="NREL")
+plt.plot(X, Z, label="NASA", linestyle='--')
+plt.xlabel("Hours")
+plt.ylabel("Global Horizontal Irradiance (W/m^2)")
+plt.title("GHI by data source")
+plt.legend()
+fname = 'pv_resource_gh_1year.png'
 plt.savefig(fname)
 plt.clf()
 
 # Wind resource data
+# 2 week range
 X = list(range(0,336))
 Y = nrel_results['wind_resource_speed'][0][0:336]
 Z = nasa_results['wind_resource_speed'][0][0:336]
@@ -180,7 +196,21 @@ plt.xlabel("Hours")
 plt.ylabel("Wind speed (m/s)")
 plt.title("Wind speed by data source")
 plt.legend()
-fname = 'wind_resource_speed.png'
+fname = 'wind_resource_speed_2week.png'
+plt.savefig(fname)
+plt.clf()
+# 1 year range
+X = list(range(0,8760))
+Y = nrel_results['wind_resource_speed'][0][0:8760]
+Z = nasa_results['wind_resource_speed'][0][0:8760]
+
+plt.plot(X, Y, label="NREL")
+plt.plot(X, Z, label="NASA", linestyle='--')
+plt.xlabel("Hours")
+plt.ylabel("Wind speed (m/s)")
+plt.title("Wind speed by data source")
+plt.legend()
+fname = 'wind_resource_speed_1year.png'
 plt.savefig(fname)
 plt.clf()
 
