@@ -49,10 +49,10 @@ plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
 plt.xticks(X_axis, X)
 plt.xlabel("Systems")
-plt.ylabel("Annual Energy (MW)")
-plt.title("Annual Energies by component")
+plt.ylabel("Annual Energy (MWh)")
+plt.title("Annual Energy by component")
 plt.legend()
-fname = 'annual_energies_by_component.pdf'
+fname = 'annual_energy_by_component.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -66,8 +66,8 @@ plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
 plt.xticks(X_axis, X)
 plt.xlabel("Systems")
-plt.ylabel("LCOE (USD/kW*h)")
-plt.title("LCOE by component")
+plt.ylabel("LCOE ($/kWh)")
+plt.title("Levelized Cost Of Energy by component")
 plt.legend()
 fname = 'lcoe_by_component.pdf'
 plt.savefig(fname)
@@ -92,15 +92,15 @@ plt.clf()
 
 #NPV by system component
 X = ['Solar', 'Wind', 'Hybrid']
-Y = [float(nrel_results['pv_npv']), float(nrel_results['wind_npv']), float(nrel_results['hybrid_npv'])]
-Z = [float(nasa_results['pv_npv']), float(nasa_results['wind_npv']), float(nasa_results['hybrid_npv'])]
+Y = [float(nrel_results['pv_npv']/(1e6)), float(nrel_results['wind_npv']/(1e6)), float(nrel_results['hybrid_npv']/(1e6))]
+Z = [float(nasa_results['pv_npv']/(1e6)), float(nasa_results['wind_npv']/(1e6)), float(nasa_results['hybrid_npv']/(1e6))]
 X_axis = np.arange(3)
 
 plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
 plt.xticks(X_axis, X)
 plt.xlabel("Systems")
-plt.ylabel("Net Present Value ($)")
+plt.ylabel("Net Present Value ($ Millions)")
 plt.title("Net Present Value by component")
 plt.legend()
 fname = 'npv_by_component.pdf'
@@ -116,10 +116,10 @@ Z = nasa_results['pv_generation_profile'][0][0:168]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Solar Power Generation (kW)")
-plt.title("Solar Generation Profiles")
+plt.ylabel("Solar Power (kW)")
+plt.title("Solar Power Generation Profiles")
 plt.legend()
-fname = 'solar_generation_profile.pdf'
+fname = 'one_week_solar_generation_profile.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -131,10 +131,10 @@ Z = nasa_results['wind_generation_profile'][0][0:168]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Wind Power Generation (kW)")
-plt.title("Wind Generation Profiles")
+plt.ylabel("Wind Power (kW)")
+plt.title("Wind Power Generation Profiles")
 plt.legend()
-fname = 'wind_generation_profile.pdf'
+fname = 'one_week_wind_generation_profile.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -146,10 +146,10 @@ Z = nasa_results['hybrid_generation_profile'][0][0:168]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Hybrid Power Generation (kW)")
-plt.title("Hybrid Generation Profiles")
+plt.ylabel("Hybrid Power (kW)")
+plt.title("Hybrid Power Generation Profiles")
 plt.legend()
-fname = 'hybrid_generation_profile.pdf'
+fname = 'one_week_hybrid_generation_profile.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -163,10 +163,10 @@ Z = nasa_results['pv_resource_gh'][0][0:336]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Global Horizontal Irradiance (W/m^2)")
-plt.title("GHI by data source")
+plt.ylabel("GHI (W/$m^2$)")
+plt.title("Global Horizontal Irradiance")
 plt.legend()
-fname = 'pv_resource_gh_2week.pdf'
+fname = 'two_week_pv_resource_gh.pdf'
 plt.savefig(fname)
 plt.clf()
 # 1 year range
@@ -177,10 +177,10 @@ Z = nasa_results['pv_resource_gh'][0][0:8760]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Global Horizontal Irradiance (W/m^2)")
-plt.title("GHI by data source")
+plt.ylabel("GHI (W/$m^2$)")
+plt.title("Global Horizontal Irradiance")
 plt.legend()
-fname = 'pv_resource_gh_1year.pdf'
+fname = 'one_year_pv_resource_gh.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -194,9 +194,9 @@ plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
 plt.ylabel("Wind speed (m/s)")
-plt.title("Wind speed by data source")
+plt.title("Wind speed at hub height")
 plt.legend()
-fname = 'wind_resource_speed_2week.pdf'
+fname = 'two_week_wind_resource_speed.pdf'
 plt.savefig(fname)
 plt.clf()
 # Wind speed: 1 year range
@@ -208,9 +208,9 @@ plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
 plt.ylabel("Wind speed (m/s)")
-plt.title("Wind speed by data source")
+plt.title("Wind speed at hub height")
 plt.legend()
-fname = 'wind_resource_speed_1year.pdf'
+fname = 'one_year_wind_resource_speed.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -222,10 +222,10 @@ Z = nasa_results['wind_resource_temp'][0][0:336]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Temp (C)")
-plt.title("Wind temp by data source")
+plt.ylabel("Temperature (\N{DEGREE SIGN}C)")
+plt.title("Temperature at hub height")
 plt.legend()
-fname = 'wind_resource_temp_2week.pdf'
+fname = 'two_week_wind_resource_temp.pdf'
 plt.savefig(fname)
 plt.clf()
 # Wind temp: 1 year range
@@ -236,10 +236,10 @@ Z = nasa_results['wind_resource_temp'][0][0:8760]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Temp (C)")
-plt.title("Wind temp by data source")
+plt.ylabel("Temp (\N{DEGREE SIGN}C)")
+plt.title("Temperature at hub height")
 plt.legend()
-fname = 'wind_resource_temp_1year.pdf'
+fname = 'one_year_wind_resource_temp.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -252,9 +252,9 @@ plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
 plt.ylabel("Pressure (atm)")
-plt.title("Wind pres by data source")
+plt.title("Pressure at hub height")
 plt.legend()
-fname = 'wind_resource_pres_2week.pdf'
+fname = 'two_week_wind_resource_pres.pdf'
 plt.savefig(fname)
 plt.clf()
 # Wind pres: 1 year range
@@ -266,9 +266,9 @@ plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
 plt.ylabel("Pressure (atm)")
-plt.title("Wind pres by data source")
+plt.title("Pressure at hub height")
 plt.legend()
-fname = 'wind_resource_pres_1year.pdf'
+fname = 'one_year_wind_resource_pres.pdf'
 plt.savefig(fname)
 plt.clf()
 
@@ -280,10 +280,10 @@ Z = nasa_results['wind_resource_dir'][0][0:336]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Wind direction (deg)")
-plt.title("Wind dir by data source")
+plt.ylabel("Wind direction (degrees)")
+plt.title("Wind direction at hub height")
 plt.legend()
-fname = 'wind_resource_dir_2week.pdf'
+fname = 'two_week_wind_resource_dir.pdf'
 plt.savefig(fname)
 plt.clf()
 # Wind direction: 1 year range
@@ -294,10 +294,10 @@ Z = nasa_results['wind_resource_dir'][0][0:8760]
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
 plt.xlabel("Hours")
-plt.ylabel("Wind direction (deg)")
-plt.title("Wind dir by data source")
+plt.ylabel("Wind direction (degrees)")
+plt.title("Wind direction at hub height")
 plt.legend()
-fname = 'wind_resource_dir_1year.pdf'
+fname = 'one_year_wind_resource_dir.pdf'
 plt.savefig(fname)
 plt.clf()
 
