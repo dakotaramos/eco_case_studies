@@ -17,7 +17,7 @@ set_nrel_key_dot_env()
 if __name__ == "__main__":
     # build the model
     prob = om.Problem()
-    prob.model.add_subsystem('hybrid_system', HybridSystem(location=bozcaada_site, resource_api='nasa', battery=True, grid=True, sim_duration_years=25), promotes=['*'])
+    prob.model.add_subsystem('hybrid_system', HybridSystem(location=bozcaada_site, resource_api='nasa', battery=True, grid=True, sim_duration_years=25, turbine_hub_ht=50), promotes=['*'])
 
     # # setup the optimization
     prob.driver = om.ScipyOptimizeDriver()

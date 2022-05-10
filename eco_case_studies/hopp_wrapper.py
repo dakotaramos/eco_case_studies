@@ -23,10 +23,12 @@ class HybridSystem(om.ExplicitComponent):
         self.options.declare('battery', default=True)
         self.options.declare('grid', default=True)
         self.options.declare('sim_duration_years', default=25)
+        self.options.declare('turbine_hub_ht', default=80)
 
     def setup(self):
-        # Duration variable
+        # Duration and turbine hub height variables
         self.sim_duration_years = self.options['sim_duration_years']
+        self.wind_turbine_hub_ht = self.options['turbine_hub_ht']
         # Battery inputs
         if self.options['location'] == flatirons_site:
             if self.options['battery']:
@@ -177,7 +179,7 @@ class HybridSystem(om.ExplicitComponent):
         prices_file = examples_dir / "pricing-data-2015-IronMtn-002_factors.csv"
         resource_api = self.options['resource_api']
         location = self.options['location']
-        site = SiteInfo(location, api=resource_api, grid_resource_file=prices_file)
+        site = SiteInfo(location, api=resource_api, grid_resource_file=prices_file, turbine_hub_ht=self.wind_turbine_hub_ht)
         
         # Create model
         
