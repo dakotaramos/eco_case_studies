@@ -60,7 +60,7 @@ class HybridSystem(om.ExplicitComponent):
 
         if self.options['location'] == bozcaada_site:
             if self.options['grid']:
-                self.add_input('interconnection_size_mw', units='MW', val=20.0)
+                self.add_input('interconnection_size_mw', units='MW', val=0.135)
             else:
                 self.add_input('interconnection_size_mw', units='MW', val=0.)
 
