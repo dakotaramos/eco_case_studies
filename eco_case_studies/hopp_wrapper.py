@@ -154,6 +154,7 @@ class HybridSystem(om.ExplicitComponent):
                         'wind': {
                             'num_turbines': 17,
                             'turbine_rating_kw': turbine_rating_kw,
+                            'hub_height': self.wind_turbine_hub_ht,
                             # 'layout_mode': 'boundarygrid' or 'grid' ,
                             # 'layout_params': 'WindBoundaryGridParameters' if 'layout_mode' = 'boundarygrid'
                         }}
@@ -179,7 +180,7 @@ class HybridSystem(om.ExplicitComponent):
         prices_file = examples_dir / "pricing-data-2015-IronMtn-002_factors.csv"
         resource_api = self.options['resource_api']
         location = self.options['location']
-        site = SiteInfo(location, api=resource_api, grid_resource_file=prices_file, turbine_hub_ht=self.wind_turbine_hub_ht)
+        site = SiteInfo(location, api=resource_api, grid_resource_file=prices_file, hub_height=self.wind_turbine_hub_ht)
         
         # Create model
         

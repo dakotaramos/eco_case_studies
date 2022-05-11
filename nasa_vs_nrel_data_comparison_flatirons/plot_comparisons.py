@@ -47,13 +47,14 @@ X_axis = np.arange(3)
 
 plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
-plt.xticks(X_axis, X)
-plt.xlabel("Systems")
-plt.ylabel("Annual Energy (MWh)")
-plt.title("Annual Energy by component")
-plt.legend()
+plt.xticks(X_axis, X, fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Systems", fontsize=16)
+plt.ylabel("Annual Energy (MWh)", fontsize=16)
+plt.title("Annual Energy by component", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'annual_energy_by_component.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # LCOE real by system component 
@@ -64,13 +65,14 @@ X_axis = np.arange(3)
 
 plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
-plt.xticks(X_axis, X)
-plt.xlabel("Systems")
-plt.ylabel("LCOE ($/kWh)")
-plt.title("Levelized Cost Of Energy by component")
-plt.legend()
+plt.xticks(X_axis, X, fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Systems", fontsize=16)
+plt.ylabel("LCOE ($/kWh)", fontsize=16)
+plt.title("Levelized Cost Of Energy by component", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'lcoe_by_component.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Total revenues ($ Millions) by system component
@@ -81,13 +83,14 @@ X_axis = np.arange(3)
 
 plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
-plt.xticks(X_axis, X)
-plt.xlabel("Systems")
-plt.ylabel("Total Revenues ($ Millions)")
-plt.title("Total Revenues by component")
-plt.legend()
+plt.xticks(X_axis, X, fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Systems", fontsize=16)
+plt.ylabel("Total Revenues ($ Millions)", fontsize=16)
+plt.title("Total Revenues by component", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'total_revenues_by_component.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 #NPV by system component
@@ -98,13 +101,14 @@ X_axis = np.arange(3)
 
 plt.bar(X_axis - 0.2, Y, 0.4, label = "NREL")
 plt.bar(X_axis + 0.2, Z, 0.4, label = "NASA")
-plt.xticks(X_axis, X)
-plt.xlabel("Systems")
-plt.ylabel("Net Present Value ($ Millions)")
-plt.title("Net Present Value by component")
-plt.legend()
+plt.xticks(X_axis, X, fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Systems", fontsize=16)
+plt.ylabel("Net Present Value ($ Millions)", fontsize=16)
+plt.title("Net Present Value by component", fontsize=16)
+plt.legend(loc='upper left', fontsize=14)
 fname = 'npv_by_component.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 ### Visualize time series generation profile
@@ -115,12 +119,14 @@ Z = nasa_results['pv_generation_profile'][0][0:168]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Solar Power (kW)")
-plt.title("Solar Power Generation Profiles")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Solar Power (kW)", fontsize=16)
+plt.title("Solar Power Generation Profiles", fontsize=16)
+plt.legend(loc='center right', fontsize=14)
 fname = 'one_week_solar_generation_profile.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Wind generation profile, 1 week timescale
@@ -130,12 +136,14 @@ Z = nasa_results['wind_generation_profile'][0][0:168]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Wind Power (kW)")
-plt.title("Wind Power Generation Profiles")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Wind Power (kW)", fontsize=16)
+plt.title("Wind Power Generation Profiles", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'one_week_wind_generation_profile.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Hybrid generation profile, 1 week timescale
@@ -145,12 +153,14 @@ Z = nasa_results['hybrid_generation_profile'][0][0:168]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Hybrid Power (kW)")
-plt.title("Hybrid Power Generation Profiles")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Hybrid Power (kW)", fontsize=16)
+plt.title("Hybrid Power Generation Profiles", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'one_week_hybrid_generation_profile.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 ### Visualize timeseries resource data
@@ -162,12 +172,14 @@ Z = nasa_results['pv_resource_gh'][0][0:336]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("GHI (W/$m^2$)")
-plt.title("Global Horizontal Irradiance")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("GHI (W/$m^2$)", fontsize=16)
+plt.title("Global Horizontal Irradiance", fontsize=16)
+plt.legend(loc='upper left', fontsize=14)
 fname = 'two_week_pv_resource_gh.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 # 1 year range
 X = list(range(0,8760))
@@ -176,12 +188,14 @@ Z = nasa_results['pv_resource_gh'][0][0:8760]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("GHI (W/$m^2$)")
-plt.title("Global Horizontal Irradiance")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("GHI (W/$m^2$)", fontsize=16)
+plt.title("Global Horizontal Irradiance", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'one_year_pv_resource_gh.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Wind resource data
@@ -192,13 +206,16 @@ Z = nasa_results['wind_resource_speed'][0][0:336]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Wind speed (m/s)")
-plt.title("Wind speed at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Wind speed (m/s)", fontsize=16)
+plt.title("Wind speed at hub height", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'two_week_wind_resource_speed.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
+
 # Wind speed: 1 year range
 X = list(range(0,8760))
 Y = nrel_results['wind_resource_speed'][0][0:8760]
@@ -206,12 +223,14 @@ Z = nasa_results['wind_resource_speed'][0][0:8760]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Wind speed (m/s)")
-plt.title("Wind speed at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Wind speed (m/s)", fontsize=16)
+plt.title("Wind speed at hub height", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'one_year_wind_resource_speed.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Wind temp: 2 week range
@@ -221,13 +240,16 @@ Z = nasa_results['wind_resource_temp'][0][0:336]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Temperature (\N{DEGREE SIGN}C)")
-plt.title("Temperature at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Temperature (\N{DEGREE SIGN}C)", fontsize=16)
+plt.title("Temperature at hub height", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'two_week_wind_resource_temp.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
+
 # Wind temp: 1 year range
 X = list(range(0,8760))
 Y = nrel_results['wind_resource_temp'][0][0:8760]
@@ -235,12 +257,14 @@ Z = nasa_results['wind_resource_temp'][0][0:8760]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Temp (\N{DEGREE SIGN}C)")
-plt.title("Temperature at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Temp (\N{DEGREE SIGN}C)", fontsize=16)
+plt.title("Temperature at hub height", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'one_year_wind_resource_temp.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Wind pres: 2 week range
@@ -250,13 +274,16 @@ Z = nasa_results['wind_resource_pres'][0][0:336]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Pressure (atm)")
-plt.title("Pressure at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Pressure (atm)", fontsize=16)
+plt.title("Pressure at hub height", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'two_week_wind_resource_pres.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
+
 # Wind pres: 1 year range
 X = list(range(0,8760))
 Y = nrel_results['wind_resource_pres'][0][0:8760]
@@ -264,12 +291,14 @@ Z = nasa_results['wind_resource_pres'][0][0:8760]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Pressure (atm)")
-plt.title("Pressure at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Pressure (atm)", fontsize=16)
+plt.title("Pressure at hub height", fontsize=16)
+plt.legend(fontsize=14)
 fname = 'one_year_wind_resource_pres.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Wind direction: 2 week range
@@ -279,13 +308,16 @@ Z = nasa_results['wind_resource_dir'][0][0:336]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Wind direction (degrees)")
-plt.title("Wind direction at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Wind direction (degrees)", fontsize=16)
+plt.title("Wind direction at hub height", fontsize=16)
+plt.legend(loc='lower right', fontsize=14)
 fname = 'two_week_wind_resource_dir.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
+
 # Wind direction: 1 year range
 X = list(range(0,8760))
 Y = nrel_results['wind_resource_dir'][0][0:8760]
@@ -293,23 +325,12 @@ Z = nasa_results['wind_resource_dir'][0][0:8760]
 
 plt.plot(X, Y, label="NREL")
 plt.plot(X, Z, label="NASA", linestyle='--')
-plt.xlabel("Hours")
-plt.ylabel("Wind direction (degrees)")
-plt.title("Wind direction at hub height")
-plt.legend()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+plt.xlabel("Hours", fontsize=16)
+plt.ylabel("Wind direction (degrees)", fontsize=16)
+plt.title("Wind direction at hub height", fontsize=16)
+plt.legend(loc='upper right', fontsize=14)
 fname = 'one_year_wind_resource_dir.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
-
-# plot_doe_results.py plotting
-# Plot DV vs various objectives, intended for one design variable and 1+ objectives
-# des_var = list(cr.get_case(case).get_design_vars().keys())[0]
-# for key in results:
-#     if key != des_var:
-#         plt.scatter(results[des_var],results[key])
-#         plt.xlabel('{}'.format(des_var))
-#         plt.ylabel('{}'.format(key))
-#         fname = '{}_vs_{}.pdf'.format(des_var,key)
-#         plt.savefig(fname)
-#         plt.clf()
-    # plt.show()

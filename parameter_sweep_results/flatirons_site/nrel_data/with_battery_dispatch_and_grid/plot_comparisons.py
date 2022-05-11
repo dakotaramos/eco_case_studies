@@ -90,39 +90,45 @@ for key in wind_size_results:
 
 ### scatter plots to visualize DOE results
 # Battery capacity MWh vs Hybrid LCOE
-X = battery_cap_results['battery_capacity_mwh']
-Y = battery_cap_results['hybrid_lcoe_real']
+X = battery_cap_results['battery_capacity_mwh'][1:]
+Y = battery_cap_results['hybrid_lcoe_real'][1:]
 
 plt.scatter(X, Y)
-plt.xlabel('Battery Capacity (MWh)')
-plt.ylabel('Hybrid system LCOE ($/kWh)')
-plt.title('Battery capacity vs Hybrid system LCOE')
+plt.xlabel('Battery Capacity (MWh)', fontsize=16)
+plt.ylabel('Hybrid system LCOE ($/kWh)', fontsize=16)
+plt.title('Battery capacity vs Hybrid system LCOE', fontsize=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 fname = 'battery_capacity_vs_hybrid_system_lcoe.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Battery power MW vs Hybrid LCOE
-X = battery_power_results['battery_power_mw']
-Y = battery_power_results['hybrid_lcoe_real']
+X = battery_power_results['battery_power_mw'][1:]
+Y = battery_power_results['hybrid_lcoe_real'][1:]
 
 plt.scatter(X, Y)
-plt.xlabel('Battery Power (MW)')
-plt.ylabel('Hybrid system LCOE ($/kWh)')
-plt.title('Battery power vs Hybrid system LCOE')
+plt.xlabel('Battery Power (MW)', fontsize=16)
+plt.ylabel('Hybrid system LCOE ($/kWh)', fontsize=16)
+plt.title('Battery power vs Hybrid system LCOE', fontsize=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 fname = 'battery_power_vs_hybrid_system_lcoe.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Interconnection size MW vs Hybrid LCOE
-X = interconnection_size_results['interconnection_size_mw']
-Y = interconnection_size_results['hybrid_lcoe_real']
+X = interconnection_size_results['interconnection_size_mw'][1:]
+Y = interconnection_size_results['hybrid_lcoe_real'][1:]
 
 plt.scatter(X, Y)
-plt.xlabel('Grid interconnection size (MW)')
-plt.ylabel('Hybrid system LCOE ($/kWh)')
-plt.title('Interconnection size vs Hybrid system LCOE')
+plt.xlabel('Grid interconnection size (MW)', fontsize=16)
+plt.ylabel('Hybrid system LCOE ($/kWh)', fontsize=16)
+plt.title('Interconnection size vs Hybrid system LCOE', fontsize=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 fname = 'interconnection_size_vs_hybrid_system_lcoe.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Solar size MW vs Hybrid LCOE
@@ -130,11 +136,13 @@ X = solar_size_results['solar_size_mw']
 Y = solar_size_results['hybrid_lcoe_real']
 
 plt.scatter(X, Y)
-plt.xlabel('Solar size (MW)')
-plt.ylabel('Hybrid system LCOE ($/kWh)')
-plt.title('Solar size vs Hybrid system LCOE')
+plt.xlabel('Solar size (MW)', fontsize=16)
+plt.ylabel('Hybrid system LCOE ($/kWh)', fontsize=16)
+plt.title('Solar size vs Hybrid system LCOE', fontsize=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 fname = 'solar_size_vs_hybrid_system_lcoe.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
 # Wind size MW vs Hybrid LCOE
@@ -142,10 +150,25 @@ X = wind_size_results['wind_size_mw']
 Y = wind_size_results['hybrid_lcoe_real']
 
 plt.scatter(X, Y)
-plt.xlabel('Wind size (MW)')
-plt.ylabel('Hybrid system LCOE ($/kWh)')
-plt.title('Wind size vs Hybrid system LCOE')
+plt.xlabel('Wind size (MW)', fontsize=16)
+plt.ylabel('Hybrid system LCOE ($/kWh)', fontsize=16)
+plt.title('Wind size vs Hybrid system LCOE', fontsize=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 fname = 'wind_size_vs_hybrid_system_lcoe.pdf'
-plt.savefig(fname)
+plt.savefig(fname, bbox_inches='tight')
 plt.clf()
 
+# Wind size MW vs Hybrid LCOE
+X = wind_size_results['wind_size_mw']
+Y = wind_size_results['grid_curtailment_%']
+
+plt.scatter(X, Y)
+plt.xlabel('Wind size (MW)', fontsize=16)
+plt.ylabel('Grid curtailment (%)', fontsize=16)
+plt.title('Wind size vs Grid curtailment', fontsize=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+fname = 'wind_size_vs_grid_curtailment_%.pdf'
+plt.savefig(fname, bbox_inches='tight')
+plt.clf()
